@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9eeae46dfa7cb784e8f4caf828b6f773, type: 3}
+  m_Name: Winter Data
+  m_EditorClassIdentifier: 
+  levelTitle: "\u51AC"
+  soundTrack: {fileID: 8300000, guid: 8bd303a28f29c2a4cbeec5d237360183, type: 3}
+  speed: 0
+  timeScale: 1
+  gravity: {x: 0, y: -9.3, z: 0}
+  colors:
+  - material: {fileID: 2100000, guid: cfc8f3402abff7f4aa74b2de96b4f112, type: 2}
+    color: {r: 0.4627451, g: 0.5647059, b: 0.7372549, a: 1}
+    emissionColor: {r: 0, g: 0, b: 0, a: 0}
+  - material: {fileID: 2100000, guid: f37a5ddfdb2f4c94b9f3aa33d66dcbd3, type: 2}
+    color: {r: 0.50980395, g: 0.50980395, b: 0.50980395, a: 1}
+    emissionColor: {r: 0, g: 0, b: 0, a: 0}
+  - material: {fileID: 2100000, guid: fbd7e63382d656843a87e433df04a278, type: 2}
+    color: {r: 0.08235294, g: 0.7019608, b: 1, a: 1}
+    emissionColor: {r: 0, g: 0, b: 0, a: 0}
+  - material: {fileID: 2100000, guid: 0534254645dfbfa488b251c74090bfaa, type: 2}
+    color: {r: 0.32941157, g: 0.32941157, b: 0.32941157, a: 1}
+    emissionColor: {r: 0, g: 0, b: 0, a: 0}
+  - material: {fileID: 2100000, guid: 396428f31fc2ff94d86c7d9e82fe93b7, type: 2}
+    color: {r: 0.5647059, g: 0.5647059, b: 0.5647059, a: 1}
+    emissionColor: {r: 0, g: 0, b: 0, a: 0}
