@@ -79,7 +79,7 @@ namespace DancingLineFanmade.Level
                     groundedTestRays[i].Item2.origin = selfTransform.position +
                                                        selfTransform.localRotation * groundedTestRays[i].Item1;
                     if (Physics.RaycastNonAlloc(groundedTestRays[i].Item2, groundedTestResults,
-                            groundedRayDistance + 0.1f, -257, QueryTriggerInteraction.Ignore) > 0)
+                            groundedRayDistance + 1.1f, -257, QueryTriggerInteraction.Ignore) > 0)
                         return false;
                 }
 
@@ -433,6 +433,7 @@ namespace DancingLineFanmade.Level
                 GUI.Label(new Rect(10, 250, 120, 50), "相机缩放：" + CameraFollower.Instance.scale.localScale, style);
                 GUI.Label(new Rect(10, 280, 120, 50), "视场大小：" + sceneCamera.fieldOfView, style);
                 GUI.Label(new Rect(10, 310, 120, 50), "线的速度：" + Speed, style);
+                GUI.Label(new Rect(10, 340, 120, 50), "是否掉落：" + Falling, style);
             }
             else
             {

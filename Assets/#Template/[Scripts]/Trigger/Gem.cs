@@ -7,6 +7,7 @@ namespace DancingLineFanmade.Trigger
     public class Gem : MonoBehaviour
     {
         [SerializeField] private bool fake;
+        [SerializeField] private bool isRotate;
 
         private Player player;
         private GameObject effectPrefab;
@@ -25,7 +26,10 @@ namespace DancingLineFanmade.Trigger
 
         private void Update()
         {
-            transform.Rotate(Vector3.up, Time.deltaTime * 60f);
+            if (isRotate)
+            {
+                transform.Rotate(Vector3.up, Time.deltaTime * 60f);
+            }
         }
 
         private void OnTriggerEnter(Collider other)

@@ -34,6 +34,7 @@ namespace DancingLineFanmade.Timer
         [SerializeField] private Ease ease = Ease.InOutSine;
         [SerializeField] private AnimationCurve curve = LevelManager.linearCurve;
         [SerializeField] private bool useCurve;
+        [SerializeField] public bool getOriginTransformAtTime;
         [SerializeField] protected Vector3 originalTransform = Vector3.zero;
 
         protected bool finished;

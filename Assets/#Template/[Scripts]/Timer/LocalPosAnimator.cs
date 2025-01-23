@@ -23,9 +23,13 @@ namespace DancingLineFanmade.Timer
 
         private void Update()
         {
-            if (!finished && LevelManager.GameState == GameStatus.Playing && AudioManager.Time > triggerTime &&
-                triggeredByTime)
+            if (!finished && (LevelManager.GameState == GameStatus.Playing || LevelManager.GameState == GameStatus.Completed) && AudioManager.Time > triggerTime &&
+                triggeredByTime){
+                Debug.Log(AudioManager.Time);
+                if(getOriginTransformAtTime)
+                    originalTransform = transform.localPosition; 
                 Trigger();
+            }
         }
 
         public void Trigger()
