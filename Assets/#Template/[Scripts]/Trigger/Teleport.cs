@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace DancingLineFanmade.Trigger
 {
-    internal enum TeleportType
+    enum TeleportType
     {
         Target,
         Position
@@ -14,26 +14,22 @@ namespace DancingLineFanmade.Trigger
     public class Teleport : MonoBehaviour
     {
         [SerializeField, EnumToggleButtons] private TeleportType type = TeleportType.Target;
+        [SerializeField, HideIf("type", TeleportType.Position)] private Transform target;
+        [SerializeField, HideIf("type", TeleportType.Target)] private Vector3 position = Vector3.zero;
 
-        [SerializeField, HideIf("type", TeleportType.Position)]
-        private Transform target;
-
-        [SerializeField, HideIf("type", TeleportType.Target)]
-        private Vector3 position = Vector3.zero;
-
-        [SerializeField] private bool turn;
+        [SerializeField] private bool turn = false;
         [SerializeField, ShowIf("turn")] private Direction targetDirection = Direction.First;
 
         private void OnTriggerEnter(Collider other)
         {
-            var final = type switch
+            Vector3 final;
+            switch (type)
             {
-                TeleportType.Target => target.position,
-                TeleportType.Position => position,
-                _ => Vector3.zero
-            };
-            if (other.CompareTag("Player"))
-                LevelManager.InitPlayerPosition(Player.Instance, final, turn, targetDirection);
+                case TeleportType.Target: final = target.position; break;
+                case TeleportType.Position: final = position; break;
+                default: final = Vector3.zero; break;
+            }
+            if (other.CompareTag("Player")) LevelManager.InitPlayerPosition(Player.Instance, final, turn, targetDirection);
         }
     }
 }

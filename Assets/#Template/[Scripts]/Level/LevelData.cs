@@ -13,38 +13,29 @@ namespace DancingLineFanmade.Level
     {
         public string levelTitle = "标题";
         public AudioClip soundTrack;
-        [MinValue(0)] public int speed = 12;
+        [MinValue(0f)] public float speed = 12f;
         [MinValue(0f)] public float timeScale = 1f;
         public Vector3 gravity = LevelManager.defaultGravity;
-        [TableList] public List<SingleColor> colors = new();
+        [TableList] public List<SingleColor> colors = new List<SingleColor>();
 
         internal void SetLevelData()
         {
             Player.Instance.Speed = speed;
             Time.timeScale = timeScale;
             Physics.gravity = gravity;
-            foreach (var s in colors)
-            {
-                s.SetColor();
-            }
+            foreach (SingleColor s in colors) s.SetColor();
         }
 
         [Button("Get Colors", ButtonSizes.Large), HorizontalGroup("Color")]
-        internal void GetColors()
+        private void GetColors()
         {
-            foreach (var s in colors)
-            {
-                s.GetColor();
-            }
+            foreach (SingleColor s in colors) s.GetColor();
         }
 
         [Button("Set Colors", ButtonSizes.Large), HorizontalGroup("Color")]
-        internal void SetColors()
+        private void SetColors()
         {
-            foreach (var s in colors)
-            {
-                s.SetColor();
-            }
+            foreach (SingleColor s in colors) s.SetColor();
         }
     }
 
@@ -53,46 +44,22 @@ namespace DancingLineFanmade.Level
     {
         public Material material;
         public Color color = Color.white;
-        public Color emissionColor = Color.clear;
 
-        private static readonly int Emission = Shader.PropertyToID("_Emission");
+        private List<Tween> tweens = new List<Tween>();
 
         internal void GetColor()
         {
             color = material.color;
-            emissionColor = material.GetColor(Emission);
         }
 
         internal void SetColor()
         {
             material.color = color;
-            material.SetColor(Emission, emissionColor);
         }
 
         internal void SetColor(float duration, Ease ease)
         {
-            material.DOColor(color, duration).SetEase(ease);
-            material.DOColor(emissionColor, Emission, duration).SetEase(ease);
-        }
-        
-        internal void SetColor(float duration, AnimationCurve curve)
-        {
-            material.DOColor(color, duration).SetEase(curve);
-            material.DOColor(emissionColor, Emission, duration).SetEase(curve);
-        }
-
-        internal Tween DoColor(float duration, Ease ease)
-        {
-            var tween = material.DOColor(color, duration).SetEase(ease);
-            material.DOColor(emissionColor, Emission, duration).SetEase(ease);
-            return tween;
-        }
-        
-        internal Tween DoColor(float duration, AnimationCurve curve)
-        {
-            var tween = material.DOColor(color, duration).SetEase(curve);
-            material.DOColor(emissionColor, Emission, duration).SetEase(curve);
-            return tween;
+            tweens.Add(material.DOColor(color, duration).SetEase(ease));
         }
     }
 
@@ -101,6 +68,8 @@ namespace DancingLineFanmade.Level
     {
         public Image image;
         public Color color = Color.white;
+
+        private List<Tween> tweens = new List<Tween>();
 
         internal void GetColor()
         {
@@ -114,22 +83,7 @@ namespace DancingLineFanmade.Level
 
         internal void SetColor(float duration, Ease ease)
         {
-            image.DOColor(color, duration).SetEase(ease);
-        }
-        
-        internal void SetColor(float duration, AnimationCurve curve)
-        {
-            image.DOColor(color, duration).SetEase(curve);
-        }
-
-        internal Tween DoColor(float duration, Ease ease)
-        {
-            return image.DOColor(color, duration).SetEase(ease);
-        }
-        
-        internal Tween DoColor(float duration, AnimationCurve curve)
-        {
-            return image.DOColor(color, duration).SetEase(curve);
+            tweens.Add(image.DOColor(color, duration).SetEase(ease));
         }
     }
 
@@ -140,6 +94,8 @@ namespace DancingLineFanmade.Level
         public Color fogColor = Color.white;
         public float start = 25f;
         public float end = 120f;
+
+        private List<Tween> tweens = new List<Tween>();
 
         public FogSettings()
         {
@@ -155,13 +111,11 @@ namespace DancingLineFanmade.Level
 
         internal FogSettings GetFog()
         {
-            var fog = new FogSettings
-            {
-                useFog = RenderSettings.fog,
-                fogColor = RenderSettings.fogColor,
-                start = RenderSettings.fogStartDistance,
-                end = RenderSettings.fogEndDistance
-            };
+            FogSettings fog = new FogSettings();
+            fog.useFog = RenderSettings.fog;
+            fog.fogColor = RenderSettings.fogColor;
+            fog.start = RenderSettings.fogStartDistance;
+            fog.end = RenderSettings.fogEndDistance;
             return fog;
         }
 
@@ -177,54 +131,20 @@ namespace DancingLineFanmade.Level
         internal void SetFog(Camera camera, float duration, Ease ease)
         {
             RenderSettings.fog = useFog;
-            DOTween.To(() => RenderSettings.fogColor, x => RenderSettings.fogColor = x, fogColor, duration)
-                .SetEase(ease);
-            DOTween.To(() => RenderSettings.fogStartDistance, x => RenderSettings.fogStartDistance = x,
-                start, duration).SetEase(ease);
-            DOTween.To(() => RenderSettings.fogEndDistance, x => RenderSettings.fogEndDistance = x, end,
-                duration).SetEase(ease);
-            DOTween.To(() => camera.backgroundColor, x => camera.backgroundColor = x, fogColor, duration)
-                .SetEase(ease);
-        }
-        
-        internal void SetFog(Camera camera, float duration, AnimationCurve curve)
-        {
-            RenderSettings.fog = useFog;
-            DOTween.To(() => RenderSettings.fogColor, x => RenderSettings.fogColor = x, fogColor, duration)
-                .SetEase(curve);
-            DOTween.To(() => RenderSettings.fogStartDistance, x => RenderSettings.fogStartDistance = x,
-                start, duration).SetEase(curve);
-            DOTween.To(() => RenderSettings.fogEndDistance, x => RenderSettings.fogEndDistance = x, end,
-                duration).SetEase(curve);
-            DOTween.To(() => camera.backgroundColor, x => camera.backgroundColor = x, fogColor, duration)
-                .SetEase(curve);
+            tweens.Add(DOTween.To(() => RenderSettings.fogColor, x => RenderSettings.fogColor = x, fogColor, duration).SetEase(ease));
+            tweens.Add(DOTween.To(() => RenderSettings.fogStartDistance, x => RenderSettings.fogStartDistance = x, start, duration).SetEase(ease));
+            tweens.Add(DOTween.To(() => RenderSettings.fogEndDistance, x => RenderSettings.fogEndDistance = x, end, duration).SetEase(ease));
+            tweens.Add(DOTween.To(() => camera.backgroundColor, x => camera.backgroundColor = x, fogColor, duration).SetEase(ease));
         }
 
         internal Tween DoFog(Camera camera, float duration, Ease ease)
         {
             RenderSettings.fog = useFog;
-            Tween tween = DOTween
-                .To(() => RenderSettings.fogColor, x => RenderSettings.fogColor = x, fogColor, duration).SetEase(ease);
-            DOTween.To(() => RenderSettings.fogStartDistance, x => RenderSettings.fogStartDistance = x,
-                start, duration).SetEase(ease);
-            DOTween.To(() => RenderSettings.fogEndDistance, x => RenderSettings.fogEndDistance = x, end,
-                duration).SetEase(ease);
-            DOTween.To(() => camera.backgroundColor, x => camera.backgroundColor = x, fogColor, duration)
-                .SetEase(ease);
-            return tween;
-        }
-
-        internal Tween DoFog(Camera camera, float duration, AnimationCurve curve)
-        {
-            RenderSettings.fog = useFog;
-            Tween tween = DOTween
-                .To(() => RenderSettings.fogColor, x => RenderSettings.fogColor = x, fogColor, duration).SetEase(curve);
-            DOTween.To(() => RenderSettings.fogStartDistance, x => RenderSettings.fogStartDistance = x,
-                start, duration).SetEase(curve);
-            DOTween.To(() => RenderSettings.fogEndDistance, x => RenderSettings.fogEndDistance = x, end,
-                duration).SetEase(curve);
-            DOTween.To(() => camera.backgroundColor, x => camera.backgroundColor = x, fogColor, duration)
-                .SetEase(curve);
+            Tween tween = DOTween.To(() => RenderSettings.fogColor, x => RenderSettings.fogColor = x, fogColor, duration).SetEase(ease);
+            tweens.Add(tween);
+            tweens.Add(DOTween.To(() => RenderSettings.fogStartDistance, x => RenderSettings.fogStartDistance = x, start, duration).SetEase(ease));
+            tweens.Add(DOTween.To(() => RenderSettings.fogEndDistance, x => RenderSettings.fogEndDistance = x, end, duration).SetEase(ease));
+            tweens.Add(DOTween.To(() => camera.backgroundColor, x => camera.backgroundColor = x, fogColor, duration).SetEase(ease));
             return tween;
         }
     }
@@ -237,15 +157,15 @@ namespace DancingLineFanmade.Level
         public float intensity = 1f;
         [Range(0f, 1f)] public float shadowStrength = 0.8f;
 
+        private List<Tween> tweens = new List<Tween>();
+
         internal LightSettings GetLight(Light light)
         {
-            var settings = new LightSettings
-            {
-                rotation = light.transform.eulerAngles,
-                color = light.color,
-                intensity = light.intensity,
-                shadowStrength = shadowStrength
-            };
+            LightSettings settings = new LightSettings();
+            settings.rotation = light.transform.eulerAngles;
+            settings.color = light.color;
+            settings.intensity = light.intensity;
+            settings.shadowStrength = shadowStrength;
             return settings;
         }
 
@@ -259,36 +179,10 @@ namespace DancingLineFanmade.Level
 
         internal void SetLight(Light light, float duration, Ease ease)
         {
-            light.transform.DORotate(rotation, duration).SetEase(ease);
-            light.DOColor(color, duration).SetEase(ease);
-            light.DOIntensity(intensity, duration).SetEase(ease);
-            light.DOShadowStrength(shadowStrength, duration).SetEase(ease);
-        }
-        
-        internal void SetLight(Light light, float duration, AnimationCurve curve)
-        {
-            light.transform.DORotate(rotation, duration).SetEase(curve);
-            light.DOColor(color, duration).SetEase(curve);
-            light.DOIntensity(intensity, duration).SetEase(curve);
-            light.DOShadowStrength(shadowStrength, duration).SetEase(curve);
-        }
-
-        internal Tween DoLight(Light light, float duration, Ease ease)
-        {
-            var tween = light.transform.DORotate(rotation, duration).SetEase(ease);
-            light.DOColor(color, duration).SetEase(ease);
-            light.DOIntensity(intensity, duration).SetEase(ease);
-            light.DOShadowStrength(shadowStrength, duration).SetEase(ease);
-            return tween;
-        }
-
-        internal Tween DoLight(Light light, float duration, AnimationCurve curve)
-        {
-            var tween = light.transform.DORotate(rotation, duration).SetEase(curve);
-            light.DOColor(color, duration).SetEase(curve);
-            light.DOIntensity(intensity, duration).SetEase(curve);
-            light.DOShadowStrength(shadowStrength, duration).SetEase(curve);
-            return tween;
+            tweens.Add(light.transform.DORotate(rotation, duration).SetEase(ease));
+            tweens.Add(light.DOColor(color, duration).SetEase(ease));
+            tweens.Add(light.DOIntensity(intensity, duration).SetEase(ease));
+            tweens.Add(light.DOShadowStrength(shadowStrength, duration).SetEase(ease));
         }
     }
 
@@ -303,55 +197,45 @@ namespace DancingLineFanmade.Level
     public class AmbientSettings
     {
         [EnumToggleButtons] public EnvironmentLightingType lightingType = EnvironmentLightingType.Color;
+        [Range(0f, 8f), ShowIf("@lightingType == EnvironmentLightingType.Skybox")] public float intensity = 1f;
+        [ShowIf("@lightingType == EnvironmentLightingType.Color")] public Color ambientColor = new Color(0.67f, 0.67f, 0.67f, 1f);
+        [ShowIf("@lightingType == EnvironmentLightingType.Gradient")] public Color skyColor = new Color(0.67f, 0.67f, 0.67f, 1f);
+        [ShowIf("@lightingType == EnvironmentLightingType.Gradient")] public Color equatorColor = new Color(0.114f, 0.125f, 0.133f, 1f);
+        [ShowIf("@lightingType == EnvironmentLightingType.Gradient")] public Color groundColor = new Color(0.047f, 0.043f, 0.035f, 1f);
 
-        [Range(0f, 8f), ShowIf("@lightingType == EnvironmentLightingType.Skybox")]
-        public float intensity = 1f;
-
-        [ShowIf("@lightingType == EnvironmentLightingType.Color")]
-        public Color ambientColor = new(0.67f, 0.67f, 0.67f, 1f);
-
-        [ShowIf("@lightingType == EnvironmentLightingType.Gradient")]
-        public Color skyColor = new(0.67f, 0.67f, 0.67f, 1f);
-
-        [ShowIf("@lightingType == EnvironmentLightingType.Gradient")]
-        public Color equatorColor = new(0.114f, 0.125f, 0.133f, 1f);
-
-        [ShowIf("@lightingType == EnvironmentLightingType.Gradient")]
-        public Color groundColor = new(0.047f, 0.043f, 0.035f, 1f);
+        private List<Tween> tweens = new List<Tween>();
 
         internal AmbientMode GetAmbientMode(EnvironmentLightingType type)
         {
-            return type switch
+            switch (type)
             {
-                EnvironmentLightingType.Skybox => AmbientMode.Skybox,
-                EnvironmentLightingType.Color => AmbientMode.Flat,
-                EnvironmentLightingType.Gradient => AmbientMode.Trilight,
-                _ => AmbientMode.Flat
-            };
+                case EnvironmentLightingType.Skybox: return AmbientMode.Skybox;
+                case EnvironmentLightingType.Color: return AmbientMode.Flat;
+                case EnvironmentLightingType.Gradient: return AmbientMode.Trilight;
+                default: return AmbientMode.Flat;
+            }
         }
 
         internal EnvironmentLightingType GetEnvironmentLightingType(AmbientMode type)
         {
-            return type switch
+            switch (type)
             {
-                AmbientMode.Skybox => EnvironmentLightingType.Skybox,
-                AmbientMode.Flat => EnvironmentLightingType.Color,
-                AmbientMode.Trilight => EnvironmentLightingType.Gradient,
-                _ => EnvironmentLightingType.Color
-            };
+                case AmbientMode.Skybox: return EnvironmentLightingType.Skybox;
+                case AmbientMode.Flat: return EnvironmentLightingType.Color;
+                case AmbientMode.Trilight: return EnvironmentLightingType.Gradient;
+                default: return EnvironmentLightingType.Color;
+            }
         }
 
         internal AmbientSettings GetAmbient()
         {
-            var ambient = new AmbientSettings
-            {
-                lightingType = GetEnvironmentLightingType(RenderSettings.ambientMode),
-                intensity = RenderSettings.ambientIntensity,
-                ambientColor = RenderSettings.ambientLight,
-                skyColor = RenderSettings.ambientSkyColor,
-                equatorColor = RenderSettings.ambientEquatorColor,
-                groundColor = RenderSettings.ambientGroundColor
-            };
+            AmbientSettings ambient = new AmbientSettings();
+            ambient.lightingType = GetEnvironmentLightingType(RenderSettings.ambientMode);
+            ambient.intensity = RenderSettings.ambientIntensity;
+            ambient.ambientColor = RenderSettings.ambientLight;
+            ambient.skyColor = RenderSettings.ambientSkyColor;
+            ambient.equatorColor = RenderSettings.ambientEquatorColor;
+            ambient.groundColor = RenderSettings.ambientGroundColor;
             return ambient;
         }
 
@@ -360,12 +244,8 @@ namespace DancingLineFanmade.Level
             RenderSettings.ambientMode = GetAmbientMode(lightingType);
             switch (lightingType)
             {
-                case EnvironmentLightingType.Skybox:
-                    RenderSettings.ambientIntensity = intensity;
-                    break;
-                case EnvironmentLightingType.Color:
-                    RenderSettings.ambientLight = ambientColor;
-                    break;
+                case EnvironmentLightingType.Skybox: RenderSettings.ambientIntensity = intensity; break;
+                case EnvironmentLightingType.Color: RenderSettings.ambientLight = ambientColor; break;
                 case EnvironmentLightingType.Gradient:
                     RenderSettings.ambientSkyColor = skyColor;
                     RenderSettings.ambientEquatorColor = equatorColor;
@@ -380,98 +260,30 @@ namespace DancingLineFanmade.Level
             switch (lightingType)
             {
                 case EnvironmentLightingType.Skybox:
-                    DOTween.To(() => RenderSettings.ambientIntensity,
-                        x => RenderSettings.ambientIntensity = x, intensity, duration).SetEase(ease);
+                    tweens.Add(DOTween.To(() => RenderSettings.ambientIntensity, x => RenderSettings.ambientIntensity = x, intensity, duration).SetEase(ease));
                     break;
                 case EnvironmentLightingType.Color:
-                    DOTween.To(() => RenderSettings.ambientLight, x => RenderSettings.ambientLight = x,
-                        ambientColor, duration).SetEase(ease);
+                    tweens.Add(DOTween.To(() => RenderSettings.ambientLight, x => RenderSettings.ambientLight = x, ambientColor, duration).SetEase(ease));
                     break;
                 case EnvironmentLightingType.Gradient:
-                    DOTween.To(() => RenderSettings.ambientSkyColor, x => RenderSettings.ambientSkyColor = x,
-                        skyColor, duration).SetEase(ease);
-                    DOTween.To(() => RenderSettings.ambientEquatorColor,
-                        x => RenderSettings.ambientEquatorColor = x, equatorColor, duration).SetEase(ease);
-                    DOTween.To(() => RenderSettings.ambientGroundColor,
-                        x => RenderSettings.ambientGroundColor = x, groundColor, duration).SetEase(ease);
+                    tweens.Add(DOTween.To(() => RenderSettings.ambientSkyColor, x => RenderSettings.ambientSkyColor = x, skyColor, duration).SetEase(ease));
+                    tweens.Add(DOTween.To(() => RenderSettings.ambientEquatorColor, x => RenderSettings.ambientEquatorColor = x, equatorColor, duration).SetEase(ease));
+                    tweens.Add(DOTween.To(() => RenderSettings.ambientGroundColor, x => RenderSettings.ambientGroundColor = x, groundColor, duration).SetEase(ease));
                     break;
             }
         }
-        
-        internal void SetAmbient(float duration, AnimationCurve curve)
-        {
-            RenderSettings.ambientMode = GetAmbientMode(lightingType);
-            switch (lightingType)
-            {
-                case EnvironmentLightingType.Skybox:
-                    DOTween.To(() => RenderSettings.ambientIntensity,
-                        x => RenderSettings.ambientIntensity = x, intensity, duration).SetEase(curve);
-                    break;
-                case EnvironmentLightingType.Color:
-                    DOTween.To(() => RenderSettings.ambientLight, x => RenderSettings.ambientLight = x,
-                        ambientColor, duration).SetEase(curve);
-                    break;
-                case EnvironmentLightingType.Gradient:
-                    DOTween.To(() => RenderSettings.ambientSkyColor, x => RenderSettings.ambientSkyColor = x,
-                        skyColor, duration).SetEase(curve);
-                    DOTween.To(() => RenderSettings.ambientEquatorColor,
-                        x => RenderSettings.ambientEquatorColor = x, equatorColor, duration).SetEase(curve);
-                    DOTween.To(() => RenderSettings.ambientGroundColor,
-                        x => RenderSettings.ambientGroundColor = x, groundColor, duration).SetEase(curve);
-                    break;
-            }
-        }
+    }
 
-        internal Tween DoAmbient(float duration, Ease ease)
-        {
-            RenderSettings.ambientMode = GetAmbientMode(lightingType);
-            switch (lightingType)
-            {
-                case EnvironmentLightingType.Skybox:
-                    var tween1 = DOTween.To(() => RenderSettings.ambientIntensity,
-                        x => RenderSettings.ambientIntensity = x, intensity, duration).SetEase(ease);
-                    return tween1;
-                case EnvironmentLightingType.Color:
-                    var tween2 = DOTween.To(() => RenderSettings.ambientLight, x => RenderSettings.ambientLight = x,
-                        ambientColor, duration).SetEase(ease);
-                    return tween2;
-                case EnvironmentLightingType.Gradient:
-                    var tween3 = DOTween.To(() => RenderSettings.ambientSkyColor,
-                        x => RenderSettings.ambientSkyColor = x, skyColor, duration).SetEase(ease);
-                    DOTween.To(() => RenderSettings.ambientEquatorColor,
-                        x => RenderSettings.ambientEquatorColor = x, equatorColor, duration).SetEase(ease);
-                    DOTween.To(() => RenderSettings.ambientGroundColor,
-                        x => RenderSettings.ambientGroundColor = x, groundColor, duration).SetEase(ease);
-                    return tween3;
-                default:
-                    return null;
-            }
-        }
-        
-        internal Tween DoAmbient(float duration, AnimationCurve curve)
-        {
-            RenderSettings.ambientMode = GetAmbientMode(lightingType);
-            switch (lightingType)
-            {
-                case EnvironmentLightingType.Skybox:
-                    var tween1 = DOTween.To(() => RenderSettings.ambientIntensity,
-                        x => RenderSettings.ambientIntensity = x, intensity, duration).SetEase(curve);
-                    return tween1;
-                case EnvironmentLightingType.Color:
-                    var tween2 = DOTween.To(() => RenderSettings.ambientLight, x => RenderSettings.ambientLight = x,
-                        ambientColor, duration).SetEase(curve);
-                    return tween2;
-                case EnvironmentLightingType.Gradient:
-                    var tween3 = DOTween.To(() => RenderSettings.ambientSkyColor,
-                        x => RenderSettings.ambientSkyColor = x, skyColor, duration).SetEase(curve);
-                    DOTween.To(() => RenderSettings.ambientEquatorColor,
-                        x => RenderSettings.ambientEquatorColor = x, equatorColor, duration).SetEase(curve);
-                    DOTween.To(() => RenderSettings.ambientGroundColor,
-                        x => RenderSettings.ambientGroundColor = x, groundColor, duration).SetEase(curve);
-                    return tween3;
-                default:
-                    return null;
-            }
-        }
+    public enum Percent
+    {
+        Ten,
+        Twenty,
+        Thirty,
+        Forty,
+        Fifty,
+        Sixty,
+        Seventy,
+        Eighty,
+        Ninety,
     }
 }

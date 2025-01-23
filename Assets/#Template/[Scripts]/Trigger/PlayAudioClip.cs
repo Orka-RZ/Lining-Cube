@@ -12,8 +12,7 @@ namespace DancingLineFanmade.Trigger
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Player") && triggeredByTrigger) 
-                PlayClip();
+            if (other.CompareTag("Player") && triggeredByTrigger) PlayClip();
         }
 
         public void PlayClip()

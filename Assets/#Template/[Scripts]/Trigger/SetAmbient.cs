@@ -10,16 +10,10 @@ namespace DancingLineFanmade.Trigger
         [SerializeField] private AmbientSettings ambient;
         [SerializeField] private float duration = 2f;
         [SerializeField] private Ease ease = Ease.Linear;
-        [SerializeField] private AnimationCurve curve = LevelManager.linearCurve;
-        [SerializeField] private bool useCurve;
 
         private void OnTriggerEnter(Collider other)
         {
-            if (!other.CompareTag("Player"))
-                return;
-            if (useCurve)
-                ambient.SetAmbient(duration, curve);
-            else ambient.SetAmbient(duration, ease);
+            if (other.CompareTag("Player")) ambient.SetAmbient(duration, ease);
         }
     }
 }

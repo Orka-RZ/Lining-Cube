@@ -10,8 +10,7 @@ namespace DancingLineFanmade.Trigger
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Player")) 
-                Physics.gravity = gravity;
+            if (other.CompareTag("Player")) Physics.gravity = gravity;
         }
     }
 }

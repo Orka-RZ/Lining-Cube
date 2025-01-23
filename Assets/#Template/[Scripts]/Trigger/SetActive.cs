@@ -2,7 +2,6 @@ using DancingLineFanmade.Level;
 using Sirenix.OdinInspector;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace DancingLineFanmade.Trigger
@@ -30,49 +29,36 @@ namespace DancingLineFanmade.Trigger
     [DisallowMultipleComponent]
     public class SetActive : MonoBehaviour
     {
-        [SerializeField] internal bool activeOnAwake;
-        [SerializeField, TableList] internal List<SingleActive> actives = new();
+        [SerializeField] internal bool activeOnAwake = false;
+        [SerializeField, TableList] internal List<SingleActive> actives = new List<SingleActive>();
 
-        private readonly List<SingleActive> revives = new();
+        private List<SingleActive> revives = new List<SingleActive>();
         internal int index;
 
         private void Start()
         {
-            if (!activeOnAwake) 
-                return;
-            foreach (var s in actives)
-            {
-                s.SetActive();
-            }
+            if (activeOnAwake) foreach (SingleActive s in actives) s.SetActive();
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            if (!other.CompareTag("Player") || activeOnAwake)
-                return;
-            index = Player.Instance.Checkpoints.Count;
-            foreach (var s in actives)
+            if (other.CompareTag("Player") && !activeOnAwake)
             {
-                s.SetActive();
+                index = Player.Instance.Checkpoints.Count;
+                foreach (SingleActive s in actives) s.SetActive();
             }
         }
 
         internal void AddRevives()
         {
-            for (var a = 0; a < actives.Count; a++)
-            {
-                revives.Add(new SingleActive(actives[a].target, actives[a].target.activeSelf, actives[a].dontRevive));
-            }
+            for (int a = 0; a < actives.Count; a++) revives.Add(new SingleActive(actives[a].target, actives[a].target.activeSelf, actives[a].dontRevive));
         }
 
         internal void Revive()
         {
             LevelManager.CompareCheckpointIndex(index, () =>
             {
-                foreach (var s in revives.Where(s => !s.dontRevive))
-                {
-                    s.SetActive();
-                }
+                foreach (SingleActive s in revives) if (!s.dontRevive) s.SetActive();
             });
         }
     }

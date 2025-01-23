@@ -10,16 +10,10 @@ namespace DancingLineFanmade.Trigger
         [SerializeField] private FogSettings fog;
         [SerializeField] private float duration = 2f;
         [SerializeField] private Ease ease = Ease.Linear;
-        [SerializeField] private AnimationCurve curve = LevelManager.linearCurve;
-        [SerializeField] private bool useCurve;
 
         private void OnTriggerEnter(Collider other)
         {
-            if (!other.CompareTag("Player"))
-                return;
-            if (useCurve)
-                fog.SetFog(Player.Instance.sceneCamera, duration, curve);
-            else fog.SetFog(Player.Instance.sceneCamera, duration, ease);
+            if (other.CompareTag("Player")) fog.SetFog(Player.Instance.sceneCamera, duration, ease);
         }
     }
 }

@@ -7,53 +7,65 @@ namespace DancingLineFanmade.Level
     {
         public static void PlayClip(AudioClip clip, float volume)
         {
-            var audioSource = new GameObject($"One shot sound: {clip.name}").AddComponent<AudioSource>();
+            AudioSource audioSource = new GameObject("One shot sound: " + clip.name).AddComponent<AudioSource>();
             audioSource.clip = clip;
             audioSource.volume = volume;
             audioSource.Play();
             Object.Destroy(audioSource.gameObject, clip.length);
         }
 
-        public static AudioSource CreateSoundtrack(AudioClip soundtrack, float volume)
+        public static AudioSource PlayTrack(AudioClip clip, float volume, bool playImmediately = true)
         {
-            var audioSource = new GameObject($"Level soundtrack: {soundtrack.name}").AddComponent<AudioSource>();
-            audioSource.clip = soundtrack;
+            AudioSource audioSource = new GameObject(clip.name).AddComponent<AudioSource>();
+            audioSource.clip = clip;
             audioSource.volume = volume;
+            audioSource.Play();
+            if (!playImmediately) audioSource.Stop();
             return audioSource;
+        }
+
+        public static void PlayStartTime(float time)
+        {
+            Player.Instance.SoundTrack.time = time;
+            Player.Instance.SoundTrack.Play();
         }
 
         public static float Time
         {
-            get => Player.Instance.Soundtrack.time;
-            set => Player.Instance.Soundtrack.time = value;
+            get => Player.Instance.SoundTrack.time;
+            set => Player.Instance.SoundTrack.time = value;
         }
 
         public static float Pitch
         {
-            set => Player.Instance.Soundtrack.pitch = value;
+            get => Player.Instance.SoundTrack.pitch;
+            set => Player.Instance.SoundTrack.pitch = value;
         }
 
         public static float Volume
         {
-            set => Player.Instance.Soundtrack.volume = value;
+            get => Player.Instance.SoundTrack.volume;
+            set => Player.Instance.SoundTrack.volume = value;
         }
 
-        public static float Progress => Player.Instance.Soundtrack.time / Player.Instance.Soundtrack.clip.length;
-        public static float GetProgress(float time) => time / Player.Instance.Soundtrack.clip.length;
+        public static float Progress
+        {
+            get => Player.Instance.SoundTrack.time / Player.Instance.SoundTrack.clip.length;
+        }
 
         public static void Stop()
         {
-            Player.Instance.Soundtrack.Stop();
+            Player.Instance.SoundTrack.Stop();
         }
 
         public static void Play()
         {
-            Player.Instance.Soundtrack.Play();
+            Player.Instance.SoundTrack.Play();
         }
 
         public static Tween FadeOut(float volume, float duration)
         {
-            return Player.Instance.Soundtrack.DOFade(volume, duration).SetEase(Ease.Linear).OnComplete(Stop);
+            return Player.Instance.SoundTrack.DOFade(volume, duration).SetEase(Ease.Linear).OnComplete(new TweenCallback(Stop));
         }
     }
 }

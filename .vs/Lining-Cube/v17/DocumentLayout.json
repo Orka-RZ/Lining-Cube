@@ -3,16 +3,28 @@
   "WorkspaceRootPath": "E:\\DLFC\\Lining-Cube\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{466FB834-EF05-40B5-1EB4-B3AAFF9B91A0}|Assembly-CSharp.csproj|e:\\dlfc\\lining-cube\\assets\\#template\\[scripts]\\timer\\localposanimator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{466FB834-EF05-40B5-1EB4-B3AAFF9B91A0}|Assembly-CSharp.csproj|solutionrelative:assets\\#template\\[scripts]\\timer\\localposanimator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{466FB834-EF05-40B5-1EB4-B3AAFF9B91A0}|Assembly-CSharp.csproj|e:\\dlfc\\lining-cube\\assets\\#template\\[scripts]\\ui\\setquality.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{466FB834-EF05-40B5-1EB4-B3AAFF9B91A0}|Assembly-CSharp.csproj|solutionrelative:assets\\#template\\[scripts]\\ui\\setquality.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{466FB834-EF05-40B5-1EB4-B3AAFF9B91A0}|Assembly-CSharp.csproj|e:\\dlfc\\lining-cube\\assets\\#template\\[scripts]\\level\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{466FB834-EF05-40B5-1EB4-B3AAFF9B91A0}|Assembly-CSharp.csproj|solutionrelative:assets\\#template\\[scripts]\\level\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{466FB834-EF05-40B5-1EB4-B3AAFF9B91A0}|Assembly-CSharp.csproj|E:\\DLFC\\Lining-Cube\\assets\\#template\\[scripts]\\gui\\guidanceenabled.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{466FB834-EF05-40B5-1EB4-B3AAFF9B91A0}|Assembly-CSharp.csproj|solutionrelative:assets\\#template\\[scripts]\\gui\\guidanceenabled.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{466FB834-EF05-40B5-1EB4-B3AAFF9B91A0}|Assembly-CSharp.csproj|E:\\DLFC\\Lining-Cube\\assets\\#template\\[scripts]\\gui\\levelui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{466FB834-EF05-40B5-1EB4-B3AAFF9B91A0}|Assembly-CSharp.csproj|solutionrelative:assets\\#template\\[scripts]\\gui\\levelui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{466FB834-EF05-40B5-1EB4-B3AAFF9B91A0}|Assembly-CSharp.csproj|E:\\DLFC\\Lining-Cube\\assets\\#template\\[scripts]\\gui\\setquality.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{466FB834-EF05-40B5-1EB4-B3AAFF9B91A0}|Assembly-CSharp.csproj|solutionrelative:assets\\#template\\[scripts]\\gui\\setquality.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\DLFC\\Lining-Cube\\Assets\\#Template\\[Scripts]\\Timer\\LocalPosAnimator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\#Template\\[Scripts]\\Timer\\LocalPosAnimator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\DLFC\\Lining-Cube\\Assets\\#Template\\[Scripts]\\UI\\SetQuality.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\#Template\\[Scripts]\\UI\\SetQuality.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,24 +34,58 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
+              "Title": "GuidanceEnabled.cs",
+              "DocumentMoniker": "E:\\DLFC\\Lining-Cube\\Assets\\#Template\\[Scripts]\\GUI\\GuidanceEnabled.cs",
+              "RelativeDocumentMoniker": "Assets\\#Template\\[Scripts]\\GUI\\GuidanceEnabled.cs",
+              "ToolTip": "E:\\DLFC\\Lining-Cube\\Assets\\#Template\\[Scripts]\\GUI\\GuidanceEnabled.cs",
+              "RelativeToolTip": "Assets\\#Template\\[Scripts]\\GUI\\GuidanceEnabled.cs",
+              "ViewState": "AQIAACUAAAAAAAAAAAApwDIAAABYAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-23T09:28:57.633Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "LevelUI.cs",
+              "DocumentMoniker": "E:\\DLFC\\Lining-Cube\\Assets\\#Template\\[Scripts]\\GUI\\LevelUI.cs",
+              "RelativeDocumentMoniker": "Assets\\#Template\\[Scripts]\\GUI\\LevelUI.cs",
+              "ToolTip": "E:\\DLFC\\Lining-Cube\\Assets\\#Template\\[Scripts]\\GUI\\LevelUI.cs",
+              "RelativeToolTip": "Assets\\#Template\\[Scripts]\\GUI\\LevelUI.cs",
+              "ViewState": "AQIAAD4AAAAAAAAAAAAowE0AAABTAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-23T09:03:04.655Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "SetQuality.cs",
+              "DocumentMoniker": "E:\\DLFC\\Lining-Cube\\Assets\\#Template\\[Scripts]\\GUI\\SetQuality.cs",
+              "RelativeDocumentMoniker": "Assets\\#Template\\[Scripts]\\GUI\\SetQuality.cs",
+              "ToolTip": "E:\\DLFC\\Lining-Cube\\Assets\\#Template\\[Scripts]\\GUI\\SetQuality.cs",
+              "RelativeToolTip": "Assets\\#Template\\[Scripts]\\GUI\\SetQuality.cs",
+              "ViewState": "AQIAADUAAAAAAAAAAAAowEMAAAAGAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-23T08:53:09.847Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "LocalPosAnimator.cs",
               "DocumentMoniker": "E:\\DLFC\\Lining-Cube\\Assets\\#Template\\[Scripts]\\Timer\\LocalPosAnimator.cs",
               "RelativeDocumentMoniker": "Assets\\#Template\\[Scripts]\\Timer\\LocalPosAnimator.cs",
               "ToolTip": "E:\\DLFC\\Lining-Cube\\Assets\\#Template\\[Scripts]\\Timer\\LocalPosAnimator.cs",
               "RelativeToolTip": "Assets\\#Template\\[Scripts]\\Timer\\LocalPosAnimator.cs",
-              "ViewState": "AQIAAA8AAAAAAAAAAAAswCAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-23T08:10:13.435Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-23T08:10:13.435Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 5,
               "Title": "SetQuality.cs",
               "DocumentMoniker": "E:\\DLFC\\Lining-Cube\\Assets\\#Template\\[Scripts]\\UI\\SetQuality.cs",
               "RelativeDocumentMoniker": "Assets\\#Template\\[Scripts]\\UI\\SetQuality.cs",
@@ -47,18 +93,17 @@
               "RelativeToolTip": "Assets\\#Template\\[Scripts]\\UI\\SetQuality.cs",
               "ViewState": "AQIAAAMAAAAAAAAAAAAnwAsAAAAIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-23T07:16:48.618Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-23T07:16:48.618Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "Player.cs",
               "DocumentMoniker": "E:\\DLFC\\Lining-Cube\\Assets\\#Template\\[Scripts]\\Level\\Player.cs",
               "RelativeDocumentMoniker": "Assets\\#Template\\[Scripts]\\Level\\Player.cs",
-              "ToolTip": "E:\\DLFC\\Lining-Cube\\Assets\\#Template\\[Scripts]\\Level\\Player.cs",
-              "RelativeToolTip": "Assets\\#Template\\[Scripts]\\Level\\Player.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABIAAAAAAAAA",
+              "ToolTip": "E:\\DLFC\\Lining-Cube\\Assets\\#Template\\[Scripts]\\Level\\Player.cs*",
+              "RelativeToolTip": "Assets\\#Template\\[Scripts]\\Level\\Player.cs*",
+              "ViewState": "AQIAAAABAAAAAAAAAAAewAgBAAAkAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-23T07:16:37.054Z",
               "EditorCaption": ""

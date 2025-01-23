@@ -6,13 +6,18 @@ namespace DancingLineFanmade.Level
 {
     public class ObjectPool<T> where T : Object
     {
-        private readonly Queue<T> pool = new();
+        private Queue<T> pool = new Queue<T>();
+        private int size = 0;
 
-        public int Size { get; set; }
-
-        public void ClearAll()
+        public int Size
         {
-            foreach (var t in pool) Object.Destroy(t.GameObject());
+            get => size;
+            set => size = value;
+        }
+
+        public void DestoryAll()
+        {
+            foreach (T t in pool) Object.Destroy(t.GameObject());
             pool.Clear();
         }
 
@@ -26,6 +31,9 @@ namespace DancingLineFanmade.Level
             return pool.Dequeue();
         }
 
-        public bool Full => pool.Count >= Size;
+        public bool Full
+        {
+            get => pool.Count >= size;            
+        }
     }
 }

@@ -8,46 +8,46 @@ namespace DancingLineFanmade.Trigger
     [DisallowMultipleComponent]
     public class EventTrigger : MonoBehaviour
     {
-        [SerializeField] private bool invokeOnAwake;
-        [SerializeField, HideIf("invokeOnAwake")] private bool invokeOnClick;
-        [SerializeField] private UnityEvent onTriggerEnter = new();
+        [SerializeField] private bool invokeOnAwake = false;
+        [SerializeField, HideIf("invokeOnAwake")] private bool invokeOnClick = false;
+        [SerializeField] private UnityEvent onTriggerEnter = new UnityEvent();
 
         private Player player;
-        private bool invoked;
+        private bool invoked = false;
         private int index;
 
         private void Start()
         {
             player = Player.Instance;
-            if (!invokeOnAwake)
-                return;
-            Invoke();
-            invoked = true;
+            if (invokeOnAwake)
+            {
+                Invoke();
+                invoked = true;
+            }
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            if (!other.CompareTag("Player") || invokeOnAwake || invoked) 
-                return;
-            if (!invokeOnClick) 
-                Invoke(); 
-            else player.OnTurn.AddListener(Invoke);
-            index = player.Checkpoints.Count;
+            if (other.CompareTag("Player") && !invokeOnAwake && !invoked)
+            {
+                if (!invokeOnClick) Invoke(); else player.OnTurn.AddListener(Invoke);
+                index = player.Checkpoints.Count;
+            }
         }
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.CompareTag("Player") && !invokeOnAwake && invokeOnClick) 
-                player.OnTurn.RemoveListener(Invoke);
+            if (other.CompareTag("Player") && !invokeOnAwake && invokeOnClick) player.OnTurn.RemoveListener(Invoke);
         }
 
         private void Invoke()
         {
-            if (invoked) 
-                return;
-            onTriggerEnter.Invoke();
-            invoked = true;
-            LevelManager.revivePlayer += ResetData;
+            if (!invoked)
+            {
+                onTriggerEnter.Invoke();
+                invoked = true;
+                LevelManager.revivePlayer += ResetData;
+            }
         }
 
         private void ResetData()

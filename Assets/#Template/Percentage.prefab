@@ -45,17 +45,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46a148b2fb3bb62468d23ea379631e99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  percentage: 0
+  percent: 0
   color: {r: 0, g: 0, b: 0, a: 1}
-  p10: {fileID: 427274840, guid: f4c072592fafc7248bbd1214ad116aaf, type: 3}
-  p20: {fileID: -1540207426, guid: f4c072592fafc7248bbd1214ad116aaf, type: 3}
-  p30: {fileID: -185803034, guid: f4c072592fafc7248bbd1214ad116aaf, type: 3}
-  p40: {fileID: 899342973, guid: f4c072592fafc7248bbd1214ad116aaf, type: 3}
-  p50: {fileID: -1533602015, guid: f4c072592fafc7248bbd1214ad116aaf, type: 3}
-  p60: {fileID: -1555933833, guid: f4c072592fafc7248bbd1214ad116aaf, type: 3}
-  p70: {fileID: 880511831, guid: f4c072592fafc7248bbd1214ad116aaf, type: 3}
-  p80: {fileID: -1871139547, guid: f4c072592fafc7248bbd1214ad116aaf, type: 3}
-  p90: {fileID: 1822388478, guid: f4c072592fafc7248bbd1214ad116aaf, type: 3}
+  icons:
+    ten: {fileID: 0}
+    twenty: {fileID: 0}
+    thirty: {fileID: 0}
+    forty: {fileID: 0}
+    fifty: {fileID: 0}
+    sixty: {fileID: 0}
+    seventy: {fileID: 0}
+    eighty: {fileID: 0}
+    ninety: {fileID: 0}
+  material: {fileID: 0}
 --- !u!212 &1989866197396073728
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -76,7 +78,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 06c2db0c53f323d43a95e70ed624a4af, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -97,7 +99,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 427274840, guid: f4c072592fafc7248bbd1214ad116aaf, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -105,6 +107,6 @@ SpriteRenderer:
   m_Size: {x: 1.07, y: 0.565}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0

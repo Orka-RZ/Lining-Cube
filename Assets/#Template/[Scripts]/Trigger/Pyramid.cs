@@ -19,46 +19,39 @@ namespace DancingLineFanmade.Trigger
 
         private Transform left;
         private Transform right;
-        private const float width = 1.8f;
-        private const float duration = 2f;
-
-        private AudioSource audioSource;
-        public AudioClip wincilp;
+        private float width = 1.8f;
+        private float duration = 2f;
 
         private void Start()
         {
             left = transform.Find("Left");
             right = transform.Find("Right");
-
-            audioSource = GetComponent<AudioSource>();
         }
 
         internal void Trigger(TriggerType type)
         {
-            if (LevelManager.GameState == GameStatus.Died)
-                return;
-            switch (type)
+            if (LevelManager.GameState != GameStatus.Died)
             {
-                case TriggerType.Open:
-                    left.DOLocalMoveZ(width, duration).SetEase(Ease.Linear);
-                    right.DOLocalMoveZ(-width, duration).SetEase(Ease.Linear);
-                    LevelManager.revivePlayer += ResetDoor;
-                    break;
-                case TriggerType.Final:
-                    LevelManager.GameState = GameStatus.Moving;
-                    break;
-                case TriggerType.Waiting: Invoke(nameof(Complete), waitingTime); break;
-                case TriggerType.Stop: 
-                    LevelManager.GameState = GameStatus.Completed;
-                    if (CameraFollower.Instance) CameraFollower.Instance.follow = false; 
-                    break;
+                switch (type)
+                {
+                    case TriggerType.Open:
+                        left.DOLocalMoveZ(width, duration).SetEase(Ease.Linear);
+                        right.DOLocalMoveZ(-width, duration).SetEase(Ease.Linear);
+                        LevelManager.revivePlayer += ResetDoor;
+                        break;
+                    case TriggerType.Final:
+                        if (CameraFollower.Instance) CameraFollower.Instance.follow = false;
+                        LevelManager.GameState = GameStatus.Moving;
+                        break;
+                    case TriggerType.Waiting: Invoke("Complete", waitingTime); break;
+                    case TriggerType.Stop: LevelManager.GameState = GameStatus.Completed; break;
+                }
             }
         }
 
         private void Complete()
         {
             LevelManager.GameOverNormal(true);
-            audioSource.PlayOneShot(wincilp, 1f);
         }
 
         private void ResetDoor()

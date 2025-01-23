@@ -19,33 +19,15 @@ namespace DancingLineFanmade.Level
         {
             switch (index)
             {
-                case 0:
-                    onGameAwake.Invoke();
-                    break;
-                case 1:
-                    onPlayerStart.Invoke();
-                    break;
-                case 2:
-                    onChangeDirection.Invoke();
-                    break;
-                case 3:
-                    onLeaveGround.Invoke();
-                    break;
-                case 4:
-                    onTouchGround.Invoke();
-                    break;
-                case 5:
-                    onGameOver.Invoke();
-                    break;
-                case 6:
-                    onGetGem.Invoke();
-                    break;
-                case 7:
-                    onPlayerJump.Invoke();
-                    break;
-                default:
-                    Debug.Log("Target event is not exist");
-                    break;
+                case 0: onGameAwake.Invoke(); break;
+                case 1: onPlayerStart.Invoke(); break;
+                case 2: onChangeDirection.Invoke(); break;
+                case 3: onLeaveGround.Invoke(); break;
+                case 4: onTouchGround.Invoke(); break;
+                case 5: onGameOver.Invoke(); break;
+                case 6: onGetGem.Invoke(); break;
+                case 7: onPlayerJump.Invoke(); break;
+                default: Debug.Log("Target event is not exist"); break;
             }
         }
     }

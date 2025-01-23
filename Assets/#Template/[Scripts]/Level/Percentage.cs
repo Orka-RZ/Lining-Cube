@@ -1,3 +1,5 @@
+using Sirenix.OdinInspector;
+using System;
 using UnityEngine;
 
 namespace DancingLineFanmade.Level
@@ -5,27 +7,14 @@ namespace DancingLineFanmade.Level
     [DisallowMultipleComponent, RequireComponent(typeof(SpriteRenderer))]
     public class Percentage : MonoBehaviour
     {
-        private SpriteRenderer spriteRenderer;
-
-        [SerializeField] private LevelPercentage percentage;
+        [SerializeField, EnumToggleButtons] private Percent percent = Percent.Ten;
         [SerializeField] private Color color = Color.black;
+        [SerializeField] private PercentageIcons icons = new PercentageIcons();
 
-        [HideInInspector] public Sprite p10;
-        [HideInInspector] public Sprite p20;
-        [HideInInspector] public Sprite p30;
-        [HideInInspector] public Sprite p40;
-        [HideInInspector] public Sprite p50;
-        [HideInInspector] public Sprite p60;
-        [HideInInspector] public Sprite p70;
-        [HideInInspector] public Sprite p80;
-        [HideInInspector] public Sprite p90;
+        private SpriteRenderer spriteRenderer;
+        [SerializeField, HideInInspector] private Material material;
 
         private void Start()
-        {
-            SetPercentage();
-        }
-        
-        private void OnEnable()
         {
             SetPercentage();
         }
@@ -37,63 +26,62 @@ namespace DancingLineFanmade.Level
 
         private void SetPercentage()
         {
-            spriteRenderer = GetComponent<SpriteRenderer>()
-                ? GetComponent<SpriteRenderer>()
-                : gameObject.AddComponent<SpriteRenderer>();
+            spriteRenderer = GetComponent<SpriteRenderer>() ? GetComponent<SpriteRenderer>() : gameObject.AddComponent<SpriteRenderer>();
+            spriteRenderer.material = material;
             spriteRenderer.color = color;
-
-            switch (percentage)
+            switch (percent)
             {
-                case LevelPercentage.p10:
-                    spriteRenderer.sprite = p10;
+                case Percent.Ten:
+                    spriteRenderer.sprite = icons.ten;
                     gameObject.name = "10%";
                     break;
-                case LevelPercentage.p20:
-                    spriteRenderer.sprite = p20;
+                case Percent.Twenty:
+                    spriteRenderer.sprite = icons.twenty;
                     gameObject.name = "20%";
                     break;
-                case LevelPercentage.p30:
-                    spriteRenderer.sprite = p30;
+                case Percent.Thirty:
+                    spriteRenderer.sprite = icons.thirty;
                     gameObject.name = "30%";
                     break;
-                case LevelPercentage.p40:
-                    spriteRenderer.sprite = p40;
+                case Percent.Forty:
+                    spriteRenderer.sprite = icons.forty;
                     gameObject.name = "40%";
                     break;
-                case LevelPercentage.p50:
-                    spriteRenderer.sprite = p50;
+                case Percent.Fifty:
+                    spriteRenderer.sprite = icons.fifty;
                     gameObject.name = "50%";
                     break;
-                case LevelPercentage.p60:
-                    spriteRenderer.sprite = p60;
+                case Percent.Sixty:
+                    spriteRenderer.sprite = icons.sixty;
                     gameObject.name = "60%";
                     break;
-                case LevelPercentage.p70:
-                    spriteRenderer.sprite = p70;
+                case Percent.Seventy:
+                    spriteRenderer.sprite = icons.seventy;
                     gameObject.name = "70%";
                     break;
-                case LevelPercentage.p80:
-                    spriteRenderer.sprite = p80;
+                case Percent.Eighty:
+                    spriteRenderer.sprite = icons.eighty;
                     gameObject.name = "80%";
                     break;
-                case LevelPercentage.p90:
-                    spriteRenderer.sprite = p90;
+                case Percent.Ninety:
+                    spriteRenderer.sprite = icons.ninety;
                     gameObject.name = "90%";
                     break;
             }
         }
     }
-    
-    public enum LevelPercentage
+
+    [Serializable]
+    public struct PercentageIcons
     {
-        [InspectorName("10%")] p10,
-        [InspectorName("20%")] p20,
-        [InspectorName("30%")] p30,
-        [InspectorName("40%")] p40,
-        [InspectorName("50%")] p50,
-        [InspectorName("60%")] p60,
-        [InspectorName("70%")] p70,
-        [InspectorName("80%")] p80,
-        [InspectorName("90%")] p90
+        public Sprite ten;
+        public Sprite twenty;
+        public Sprite thirty;
+        public Sprite forty;
+        public Sprite fifty;
+        public Sprite sixty;
+        public Sprite seventy;
+        public Sprite eighty;
+        public Sprite ninety;
     }
 }
